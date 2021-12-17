@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "e1652522-88c0-41c6-9bd4-0d24e4443915",
+		"name": "HW_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200) \r",
+							"});\r",
+							"\r",
+							"var textData = pm.response.text()\r",
+							"pm.test(\"String \", function(){\r",
+							"       pm.expect(textData).to.have.a(\"String\");\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Body matches string\", function () {\r",
+							"//     pm.expect(pm.response.text()).to.include(\"This is the first responce from server!\");\r",
+							"// });\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/first",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"first"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var name = jsonData.name;\r",
+							"var age = parseInt(jsonData.age);\r",
+							"var salary = +jsonData.salary;\r",
+							"\r",
+							"\r",
+							"console.log(\"jsonData.name = \" + jsonData.name + \"  \" + typeof(jsonData.name))\r",
+							"console.log(\"jsonData.age = \" + jsonData.age + \"  \" + typeof(jsonData.age))\r",
+							"console.log(\"jsonData.salary = \" + jsonData.salary + \"  \" + typeof(jsonData.salary))\r",
+							"\r",
+							"pm.test(\"eql name\", function () {\r",
+							"    pm.expect(name).to.eql(\"Andreu\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"eql age\", function () {\r",
+							"    pm.expect(age).to.eql(31)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"eql salary\", function () {\r",
+							"    pm.expect(salary).to.eql(1500)\r",
+							"})\r",
+							"\r",
+							"pm.parse.request\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Andreu",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "31",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"console.log(request.data)\r",
+							"\r",
+							"pm.environment.set('name', request.data.name)\r",
+							"pm.environment.set(\"age\", request.data.age)\r",
+							"pm.environment.set(\"salary\", request.data.salary)    \r",
+							"pm.test(\"eql name 2\", function() {\r",
+							"    pm.expect(name).to.eql(name)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Andreu",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "31",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
